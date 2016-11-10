@@ -3,18 +3,14 @@ package ru.anystat.anycipe.rest;
 import com.mongodb.client.MongoDatabase;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 import ru.anystat.anycipe.rest.configs.MongoConfiguration;
 
 /**
  * Created by ustits on 08.11.16.
  */
-public class RestContext {
-
-    private static RestContext ourInstance = new RestContext();
-
-    public static RestContext getInstance() {
-        return ourInstance;
-    }
+@Component
+public class RestContext implements DataBaseContext<MongoDatabase> {
 
     private static ApplicationContext context;
 
@@ -22,7 +18,8 @@ public class RestContext {
         context = new AnnotationConfigApplicationContext(MongoConfiguration.class);
     }
 
-    public MongoDatabase getDB() {
+    public MongoDatabase getContext() {
         return context.getBean(MongoDatabase.class);
     }
+
 }
