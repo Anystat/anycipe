@@ -1,5 +1,6 @@
 package ru.anystat.anycipe.rest.repositories;
 
+import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,13 @@ public class ReceiptsRepository implements Repository {
     @Autowired
     private RestContext restContext;
 
-    public Iterable<Document> getAll() {
+    public Iterable<Document> findAll() {
         return restContext.getContext().getCollection(DB_NAME).find();
+    }
+
+    public Iterable<Document> findByName(String name) {
+        return restContext.getContext()
+                .getCollection(DB_NAME)
+                .find(Filters.eq("borough", name));
     }
 }

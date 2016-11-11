@@ -2,10 +2,10 @@ package ru.anystat.anycipe.rest.controllers;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import ru.anystat.anycipe.rest.RestContext;
 import ru.anystat.anycipe.rest.repositories.ReceiptsRepository;
 
 /**
@@ -20,6 +20,11 @@ public class ReceiptsController {
 
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<Document> getEntities() {
-        return repository.getAll();
+        return repository.findAll();
+    }
+
+    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+    public Iterable<Document> getEntriesByName(@PathVariable String name) {
+        return repository.findByName(name);
     }
 }

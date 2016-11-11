@@ -7,5 +7,7 @@ import org.bson.Document;
  */
 public interface Repository {
 
-    Iterable<Document> getAll();
+    Iterable<Document> findAll();
+
+    Iterable<Document> findByName(String name);
 }
