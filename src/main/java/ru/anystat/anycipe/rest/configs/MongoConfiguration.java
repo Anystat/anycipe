@@ -15,7 +15,8 @@ public class MongoConfiguration {
     @Bean
     public MongoDatabase mongoDatabase() {
         MongoClientURI uri = new MongoClientURI("mongodb://54.93.164.57");
-        MongoClient mongoClient = new MongoClient(uri);
-        return mongoClient.getDatabase("test");
+//        MongoClient mongoClient = new MongoClient(uri);
+        MongoClient mongoClient = new MongoClient();
+        return mongoClient.getDatabase("anycipe");
     }
 }
