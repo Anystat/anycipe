@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 import ru.anystat.anycipe.rest.RestContext;
 
 /**
- * Created by ustits on 10.11.16.
+ * Created by ustits on 12.11.16.
  */
 @Component
-public class ReceiptsRepository implements Repository {
+public class IngredientsRepository implements Repository {
 
-    private static final String DB_NAME = "receipts";
-    private static final String RECEIPT_FIELD = "receipt";
+    private static final String DB_NAME = "ingredients";
+    private static final String INGREDIENT_NAME = "ingredient";
 
     @Autowired
     private RestContext restContext;
@@ -25,6 +25,6 @@ public class ReceiptsRepository implements Repository {
     public Iterable<Document> findByName(String name) {
         return restContext.getContext()
                 .getCollection(DB_NAME)
-                .find(Filters.eq(RECEIPT_FIELD, name));
+                .find(Filters.eq(INGREDIENT_NAME, name));
     }
 }
