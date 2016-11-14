@@ -3,7 +3,7 @@ package ru.anystat.anycipe.rest.repositories;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.anystat.anycipe.rest.RestContext;
+import ru.anystat.anycipe.rest.context.MongoDataBaseContext;
 
 /**
  * Created by ustits on 13.11.16.
@@ -13,7 +13,7 @@ public abstract class AbstractRepository implements Repository {
     private String dbName;
 
     @Autowired
-    private RestContext restContext;
+    private MongoDataBaseContext mongoDataBaseContext;
 
     public AbstractRepository(String dbName) {
         this.dbName = dbName;
@@ -25,6 +25,6 @@ public abstract class AbstractRepository implements Repository {
     }
 
     protected MongoDatabase getDBContext() {
-        return restContext.getContext();
+        return mongoDataBaseContext.getContext();
     }
 }

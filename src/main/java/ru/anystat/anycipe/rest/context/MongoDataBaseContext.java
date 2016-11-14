@@ -1,4 +1,4 @@
-package ru.anystat.anycipe.rest;
+package ru.anystat.anycipe.rest.context;
 
 import com.mongodb.client.MongoDatabase;
 import org.springframework.context.ApplicationContext;
@@ -10,11 +10,11 @@ import ru.anystat.anycipe.rest.configs.MongoConfiguration;
  * Created by ustits on 08.11.16.
  */
 @Component
-public class RestContext implements DataBaseContext<MongoDatabase> {
+public class MongoDataBaseContext implements DataBaseContext<MongoDatabase> {
 
     private static ApplicationContext context;
 
-    private RestContext() {
+    private MongoDataBaseContext() {
         context = new AnnotationConfigApplicationContext(MongoConfiguration.class);
     }
 

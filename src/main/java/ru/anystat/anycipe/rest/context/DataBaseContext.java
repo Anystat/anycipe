@@ -1,4 +1,4 @@
-package ru.anystat.anycipe.rest;
+package ru.anystat.anycipe.rest.context;
 
 /**
  * Created by ustits on 10.11.16.

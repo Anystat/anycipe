@@ -2,10 +2,8 @@ package ru.anystat.anycipe.rest.repositories;
 
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ru.anystat.anycipe.rest.RestContext;
 
 /**
  * Created by ustits on 10.11.16.
