@@ -1,7 +1,11 @@
 package ru.anystat.anycipe.rest.repositories;
 
 import com.mongodb.client.model.Filters;
+import org.bson.BsonArray;
+import org.bson.BsonString;
+import org.bson.BsonValue;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -18,9 +22,18 @@ public class ReceiptsRepository extends AbstractRepository {
         super(dbName);
     }
 
-        public Iterable<Document> findByName(String name) {
+    public Iterable<Document> findByName(String name) {
         return getDBContext()
                 .getCollection(DB_NAME)
                 .find(Filters.eq(RECEIPT_FIELD, name));
     }
+
+    public Iterable<Document> findByMultipleParams(String[] params) {
+        Document[] documents = new Document[params.length];
+        for (int i = 0; i < params.length; i++) {
+            documents[i] = new Document("", params[i]);
+        }
+        return getDBContext().getCollection(DB_NAME).find(Filters.and(documents));
+    }
+
 }
