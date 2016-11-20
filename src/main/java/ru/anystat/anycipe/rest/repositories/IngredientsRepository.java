@@ -11,16 +11,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class IngredientsRepository extends AbstractRepository {
 
-    private static final String DB_NAME = "ingredients";
+    private static final String COLLECTION = "ingredients";
     private static final String INGREDIENT_NAME = "ingredient";
 
-    public IngredientsRepository(@Value(DB_NAME) String dbName) {
+    public IngredientsRepository(@Value(COLLECTION) String dbName) {
         super(dbName);
     }
 
     public Iterable<Document> findByName(String name) {
         return getDBContext().
-                getCollection(DB_NAME)
+                getCollection(COLLECTION)
                 .find(Filters.eq(INGREDIENT_NAME, name));
     }
 }
