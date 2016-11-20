@@ -27,7 +27,7 @@ public class ReceiptsRepository extends AbstractRepository {
     public Iterable<Document> findByMultipleParams(String[] params) {
         Document[] documents = new Document[params.length];
         for (int i = 0; i < params.length; i++) {
-            documents[i] = new Document("", params[i]);
+            documents[i] = new Document("ingredients.name", params[i]);
         }
         return getDBContext().getCollection(COLLECTION).find(Filters.and(documents));
     }
