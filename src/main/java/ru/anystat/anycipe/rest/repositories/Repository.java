@@ -10,4 +10,6 @@ public interface Repository {
     Iterable<Document> findAll();
 
     Iterable<Document> findByName(String name);
+
+    Iterable<Document> findByPattern(String regex);
 }

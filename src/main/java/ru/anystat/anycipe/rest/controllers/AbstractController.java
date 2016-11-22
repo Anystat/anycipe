@@ -25,6 +25,11 @@ public abstract class AbstractController<T extends Repository> {
         return repository.findByName(name);
     }
 
+    @RequestMapping(value = "/find/{symbol}", method = RequestMethod.GET)
+    public Iterable<Document> getEntriesRegex(@PathVariable String symbol) {
+        return getRepository().findByPattern(symbol);
+    }
+
     protected T getRepository() {
         return repository;
     }

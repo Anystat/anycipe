@@ -1,7 +1,5 @@
 package ru.anystat.anycipe.rest.repositories;
 
-import com.mongodb.client.model.Filters;
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -14,13 +12,8 @@ public class IngredientsRepository extends AbstractRepository {
     private static final String COLLECTION = "ingredients";
     private static final String INGREDIENT_NAME = "ingredient";
 
-    public IngredientsRepository(@Value(COLLECTION) String dbName) {
-        super(dbName);
-    }
-
-    public Iterable<Document> findByName(String name) {
-        return getDBContext().
-                getCollection(COLLECTION)
-                .find(Filters.eq(INGREDIENT_NAME, name));
+    public IngredientsRepository(@Value(COLLECTION) String collectionName,
+                                 @Value(INGREDIENT_NAME) String searchField) {
+        super(collectionName, searchField);
     }
 }
