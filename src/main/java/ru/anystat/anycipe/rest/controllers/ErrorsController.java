@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by ustits on 20.11.16.
  */
-@RestController
-@RequestMapping(value = "/error")
+//@RestController
+//@RequestMapping(value = "/error")
 public class ErrorsController extends AbstractErrorController {
 
     public ErrorsController(ErrorAttributes errorAttributes) {
