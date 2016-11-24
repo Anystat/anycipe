@@ -1,5 +1,6 @@
 package ru.anystat.anycipe.rest.repositories;
 
+import com.mongodb.client.FindIterable;
 import org.bson.Document;
 
 /**
@@ -7,9 +8,9 @@ import org.bson.Document;
  */
 public interface Repository {
 
-    Iterable<Document> findAll();
+    FindIterable<Document> findAll();
 
-    Iterable<Document> findByName(String name);
+    FindIterable<Document> findByName(String name);
 
-    Iterable<Document> findByPattern(String regex);
+    FindIterable<Document> findByPattern(String regex);
 }

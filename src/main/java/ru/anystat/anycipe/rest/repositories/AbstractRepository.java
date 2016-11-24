@@ -1,5 +1,6 @@
 package ru.anystat.anycipe.rest.repositories;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
@@ -23,19 +24,19 @@ public abstract class AbstractRepository implements Repository {
     }
 
     @Override
-    public final Iterable<Document> findAll() {
+    public final FindIterable<Document> findAll() {
         return getDBContext().getCollection(collectionName).find();
     }
 
     @Override
-    public Iterable<Document> findByName(String name) {
+    public FindIterable<Document> findByName(String name) {
         return getDBContext().
                 getCollection(collectionName)
                 .find(Filters.eq(searchField, name));
     }
 
     @Override
-    public Iterable<Document> findByPattern(String regex) {
+    public FindIterable<Document> findByPattern(String regex) {
         return getDBContext()
                 .getCollection(collectionName)
                 .find(Filters.regex(searchField, regex));

@@ -1,5 +1,6 @@
 package ru.anystat.anycipe.rest.repositories;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -20,7 +21,7 @@ public class ReceiptsRepository extends AbstractRepository {
         super(dbName, searchField);
     }
 
-    public Iterable<Document> findByMultipleParams(String[] params) {
+    public FindIterable<Document> findByMultipleParams(String[] params) {
         Document[] documents = new Document[params.length];
         for (int i = 0; i < params.length; i++) {
             documents[i] = new Document("ingredients.name", params[i]);

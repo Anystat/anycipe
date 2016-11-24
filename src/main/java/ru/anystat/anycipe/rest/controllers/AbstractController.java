@@ -1,5 +1,6 @@
 package ru.anystat.anycipe.rest.controllers;
 
+import com.mongodb.client.FindIterable;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,17 +17,17 @@ public abstract class AbstractController<T extends Repository> {
     private T repository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Iterable<Document> getEntities() {
+    public FindIterable<Document> getEntities() {
         return repository.findAll();
     }
 
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
-    public Iterable<Document> getEntriesByName(@PathVariable String name) {
+    public FindIterable<Document> getEntriesByName(@PathVariable String name) {
         return repository.findByName(name);
     }
 
     @RequestMapping(value = "/find/{symbol}", method = RequestMethod.GET)
-    public Iterable<Document> getEntriesRegex(@PathVariable String symbol) {
+    public FindIterable<Document> getEntriesRegex(@PathVariable String symbol) {
         return getRepository().findByPattern(symbol);
     }
 
