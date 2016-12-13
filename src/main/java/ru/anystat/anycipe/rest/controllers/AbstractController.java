@@ -1,11 +1,12 @@
 package ru.anystat.anycipe.rest.controllers;
 
 import com.mongodb.client.FindIterable;
+import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import ru.anystat.anycipe.rest.repositories.Repository;
 
 /**
@@ -13,12 +14,26 @@ import ru.anystat.anycipe.rest.repositories.Repository;
  */
 public abstract class AbstractController<T extends Repository> {
 
+    private final static Integer ENTITIES_PER_PAGE = 10;
+
     @Autowired
     private T repository;
 
     @RequestMapping(method = RequestMethod.GET)
     public FindIterable<Document> getEntities() {
         return repository.findAll();
+    }
+
+    @RequestMapping(value = "/page/{page}", method = RequestMethod.GET)
+    public FindIterable<Document> getEntitiesByPages(@PathVariable Integer page, @RequestParam Integer size) throws Exception {
+        if (size == null) {
+            size = ENTITIES_PER_PAGE;
+        }
+        FindIterable<Document> result = repository.findAll().skip(size * page).limit(size);
+        if (result.first() == null) {
+            throw new NoMorePagesException();
+        }
+        return result;
     }
 
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
@@ -33,5 +48,10 @@ public abstract class AbstractController<T extends Repository> {
 
     protected T getRepository() {
         return repository;
+    }
+
+    @ExceptionHandler(NoMorePagesException.class)
+    public ResponseEntity<Document> handleNoMorePagesException() {
+        return new ResponseEntity<>(new Document("error", "no more pages to show"), HttpStatus.BAD_REQUEST);
     }
 }
