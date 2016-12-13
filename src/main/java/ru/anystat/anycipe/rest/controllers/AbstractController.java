@@ -14,7 +14,7 @@ import ru.anystat.anycipe.rest.repositories.Repository;
  */
 public abstract class AbstractController<T extends Repository> {
 
-    private final static Integer ENTITIES_PER_PAGE = 10;
+    private final static String ENTITIES_PER_PAGE = "10";
 
     @Autowired
     private T repository;
@@ -25,10 +25,9 @@ public abstract class AbstractController<T extends Repository> {
     }
 
     @RequestMapping(value = "/page/{page}", method = RequestMethod.GET)
-    public FindIterable<Document> getEntitiesByPages(@PathVariable Integer page, @RequestParam Integer size) throws Exception {
-        if (size == null) {
-            size = ENTITIES_PER_PAGE;
-        }
+    public FindIterable<Document> getEntitiesByPages(@PathVariable Integer page,
+                                                     @RequestParam(defaultValue = ENTITIES_PER_PAGE) Integer size)
+            throws Exception {
         FindIterable<Document> result = repository.findAll().skip(size * page).limit(size);
         if (result.first() == null) {
             throw new NoMorePagesException();
